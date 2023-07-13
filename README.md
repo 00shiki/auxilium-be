@@ -65,3 +65,18 @@ Params
 Header
 
 - `Authorization: Bearer <token>`
+
+Response Body:
+
+```json
+{
+  "message": "timeline get success",
+  "list": {
+    "username": "username",
+    "description": "lorem ipsum",
+    "comment_count": 12,
+    "like_count": 12,
+    "created_at": "2022-01-08T06:34:18.598Z"
+  }
+}
+```
