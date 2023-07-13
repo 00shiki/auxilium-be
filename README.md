@@ -71,7 +71,32 @@ Response Body:
 ```json
 {
   "message": "timeline get success",
-  "list": {
+  "list": [
+    {
+      "username": "username",
+      "description": "lorem ipsum",
+      "comment_count": 12,
+      "like_count": 12,
+      "created_at": "2022-01-08T06:34:18.598Z"
+    }
+  ]
+}
+```
+
+### Timeline Detail
+
+GET `/v1/list/:id`
+
+Header
+
+- `Authorization: Bearer <token>`
+
+Response Body:
+
+```json
+{
+  "message": "timeline get success",
+  "detail": {
     "username": "username",
     "description": "lorem ipsum",
     "comment_count": 12,
