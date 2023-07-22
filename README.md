@@ -106,6 +106,15 @@ Status OK 200
     "comment_count": 12,
     "like_count": 12,
     "created_at": "2022-01-08T06:34:18.598Z"
-  }
+  },
+  "comment": [
+    {
+      "username": "username",
+      "description": "lorem ipsum",
+      "comment_count": 12,
+      "like_count": 12,
+      "created_at": "2022-01-08T06:34:18.598Z"
+    }
+  ]
 }
 ```
