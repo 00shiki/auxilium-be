@@ -68,6 +68,8 @@ Header
 
 Response Body:
 
+Status OK 200
+
 ```json
 {
   "message": "timeline get success",
@@ -92,6 +94,8 @@ Header
 - `Authorization: Bearer <token>`
 
 Response Body:
+
+Status OK 200
 
 ```json
 {
