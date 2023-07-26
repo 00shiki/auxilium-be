@@ -2,7 +2,7 @@
 
 ### Login
 
-POST `/v1/login`
+POST `/v1/users`
 
 Request Body:
 
@@ -20,14 +20,14 @@ Status OK 200
 ```json
 {
   "message": "login success",
-  "token": "fjda;lkfdjal;dkfja",
+  "access_token": "fjda;lkfdjal;dkfja",
   "refresh_token": ";fkdsja;flkdajf;ldkaj"
 }
 ```
 
 ### Register
 
-POST `/v1/register`
+POST `/v1/users/register`
 
 Request Body:
 
@@ -55,7 +55,7 @@ Status OK 201
 
 ### Timeline
 
-GET `/v1/list`
+GET `/v1/posts`
 
 Params
 
@@ -75,8 +75,10 @@ Status OK 200
   "message": "timeline get success",
   "list": [
     {
+      "id": 1,
       "username": "username",
-      "description": "lorem ipsum",
+      "avatar_url": "lorem ipsum",
+      "body": "lorem ipsum",
       "comment_count": 12,
       "like_count": 12,
       "created_at": "2022-01-08T06:34:18.598Z"
@@ -87,7 +89,7 @@ Status OK 200
 
 ### Timeline Detail
 
-GET `/v1/list/:id`
+GET `/v1/posts/:id`
 
 Header
 
@@ -101,7 +103,9 @@ Status OK 200
 {
   "message": "timeline get success",
   "detail": {
+    "id": 1,
     "username": "username",
+    "avatar_url": "lorem ipsum",
     "description": "lorem ipsum",
     "comment_count": 12,
     "like_count": 12,
@@ -109,7 +113,9 @@ Status OK 200
   },
   "comment": [
     {
+      "id": 2,
       "username": "username",
+      "avatar_url": "lorem ipsum",
       "description": "lorem ipsum",
       "comment_count": 12,
       "like_count": 12,
