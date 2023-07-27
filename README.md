@@ -79,6 +79,7 @@ Status OK 200
       "username": "username",
       "avatar_url": "lorem ipsum",
       "body": "lorem ipsum",
+      "image_url": "lorem ipsum",
       "comment_count": 12,
       "like_count": 12
     }
@@ -105,7 +106,8 @@ Status OK 200
     "id": 1,
     "username": "username",
     "avatar_url": "lorem ipsum",
-    "description": "lorem ipsum",
+    "body": "lorem ipsum",
+    "image_url": "lorem ipsum",
     "comment_count": 12,
     "like_count": 12
   },
@@ -114,7 +116,8 @@ Status OK 200
       "id": 2,
       "username": "username",
       "avatar_url": "lorem ipsum",
-      "description": "lorem ipsum",
+      "body": "lorem ipsum",
+      "image_url": "lorem ipsum",
       "comment_count": 12,
       "like_count": 12
     }
