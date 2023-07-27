@@ -80,8 +80,7 @@ Status OK 200
       "avatar_url": "lorem ipsum",
       "body": "lorem ipsum",
       "comment_count": 12,
-      "like_count": 12,
-      "created_at": "2022-01-08T06:34:18.598Z"
+      "like_count": 12
     }
   ]
 }
@@ -108,8 +107,7 @@ Status OK 200
     "avatar_url": "lorem ipsum",
     "description": "lorem ipsum",
     "comment_count": 12,
-    "like_count": 12,
-    "created_at": "2022-01-08T06:34:18.598Z"
+    "like_count": 12
   },
   "comment": [
     {
@@ -118,8 +116,7 @@ Status OK 200
       "avatar_url": "lorem ipsum",
       "description": "lorem ipsum",
       "comment_count": 12,
-      "like_count": 12,
-      "created_at": "2022-01-08T06:34:18.598Z"
+      "like_count": 12
     }
   ]
 }
