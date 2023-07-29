@@ -1,8 +1,10 @@
 package main
 
 import (
+	POSTS_HANDLER "auxilium-be/api/handler/posts"
 	USERS_HANDLER "auxilium-be/api/handler/users"
 	"auxilium-be/infrastructure/database"
+	POSTS_REPO "auxilium-be/infrastructure/repository/posts"
 	USERS_REPO "auxilium-be/infrastructure/repository/users"
 	"auxilium-be/pkg/utils"
 	"fmt"
@@ -27,11 +29,11 @@ func main() {
 
 	// Repository
 	ur := USERS_REPO.NewUsersRepository(postgres)
-	//pr := POSTS_REPO.NewPostsRepository(postgres)
+	pr := POSTS_REPO.NewPostsRepository(postgres)
 
 	// Controller
 	usersHandler := USERS_HANDLER.ControllerHandler(ur)
-	//postsHandler := POSTS_HANDLER.ControllerHandler(pr)
+	postsHandler := POSTS_HANDLER.ControllerHandler(pr, ur)
 
 	// JWT
 	utils.InitJWT()
@@ -39,6 +41,8 @@ func main() {
 	// Router
 	port := os.Getenv("PORT")
 	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
 	r.Use(cors.Handler(cors.Options{
 		// AllowedOrigins:   []string{"https://foo.com"}, // Use this to allow specific origin hosts
 		AllowedOrigins: []string{"https://*", "http://*"},
@@ -49,8 +53,6 @@ func main() {
 		AllowCredentials: false,
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	}))
-	r.Use(middleware.Logger)
-	r.Use(middleware.Recoverer)
 	r.Route("/api", func(r chi.Router) {
 		r.Route("/v1", func(r chi.Router) {
 			r.Get("/", func(w http.ResponseWriter, r *http.Request) {
@@ -63,7 +65,7 @@ func main() {
 			r.Route("/posts", func(r chi.Router) {
 				r.Use(jwtauth.Verifier(utils.TokenAuth))
 				r.Use(jwtauth.Authenticator)
-				//r.Post("/", postsHandler.CreatePosts)
+				r.Post("/", postsHandler.CreatePost)
 			})
 		})
 	})

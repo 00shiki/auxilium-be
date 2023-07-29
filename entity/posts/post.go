@@ -10,6 +10,7 @@ type Post struct {
 	UserID        uint
 	User          users.User
 	Body          string
+	ImageURL      string
 	Comments      []Comment
 	CommentsCount int64
 	LikesCount    int64

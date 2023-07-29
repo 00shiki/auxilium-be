@@ -6,20 +6,20 @@ import (
 
 type User struct {
 	gorm.Model
-	Username     string   `gorm:"size:255;not null;unique" json:"username"`
-	FirstName    string   `gorm:"size:255;not null" json:"first_name"`
-	LastName     string   `gorm:"size:255;not null" json:"last_name"`
-	Email        string   `gorm:"size:255;not null;unique" json:"email"`
-	Password     string   `gorm:"size:255;not null" json:"password"`
-	PhoneNumber  string   `gorm:"size:255;not null" json:"phone_number"`
-	AvatarUrl    string   `gorm:"size:255" json:"avatar_url"`
+	Username     string   `gorm:"size:255;not null;unique"`
+	FirstName    string   `gorm:"size:255;not null"`
+	LastName     string   `gorm:"size:255;not null"`
+	Email        string   `gorm:"size:255;not null;unique"`
+	Password     string   `gorm:"size:255;not null"`
+	PhoneNumber  string   `gorm:"size:255;not null"`
+	AvatarUrl    string   `gorm:"size:255"`
 	Location     Location `gorm:"embedded"`
-	AccessToken  string   `gorm:"size:255" json:"access_token"`
-	RefreshToken string   `gorm:"size:255" json:"refresh_token"`
+	AccessToken  string   `gorm:"size:255"`
+	RefreshToken string   `gorm:"size:255"`
 	Role         int
 }
 
 type Location struct {
-	Lat float64 `json:"lat"`
-	Lon float64 `json:"lon"`
+	Lat float64
+	Lon float64
 }

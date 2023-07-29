@@ -1,13 +1,18 @@
 package posts
 
-import "auxilium-be/infrastructure/repository/posts"
+import (
+	"auxilium-be/infrastructure/repository/posts"
+	"auxilium-be/infrastructure/repository/users"
+)
 
 type Controller struct {
-	repo *posts.Repository
+	pr *posts.Repository
+	ur *users.Repository
 }
 
-func ControllerHandler(repo *posts.Repository) *Controller {
+func ControllerHandler(pr *posts.Repository, ur *users.Repository) *Controller {
 	return &Controller{
-		repo: repo,
+		pr: pr,
+		ur: ur,
 	}
 }

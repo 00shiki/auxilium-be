@@ -2,7 +2,7 @@
 
 ### Login
 
-POST `/v1/users`
+POST `api/v1/users`
 
 Request Body:
 
@@ -20,14 +20,16 @@ Status OK 200
 ```json
 {
   "message": "login success",
-  "access_token": "fjda;lkfdjal;dkfja",
-  "refresh_token": ";fkdsja;flkdajf;ldkaj"
+  "data": {
+    "access_token": "fjda;lkfdjal;dkfja",
+    "refresh_token": ";fkdsja;flkdajf;ldkaj"
+  }
 }
 ```
 
 ### Register
 
-POST `/v1/users/register`
+POST `api/v1/users/register`
 
 Request Body:
 
@@ -53,9 +55,9 @@ Status OK 201
 }
 ```
 
-### Timeline
+### Get Posts
 
-GET `/v1/posts`
+GET `api/v1/posts`
 
 Params
 
@@ -73,23 +75,25 @@ Status OK 200
 ```json
 {
   "message": "timeline get success",
-  "list": [
-    {
-      "id": 1,
-      "username": "username",
-      "avatar_url": "lorem ipsum",
-      "body": "lorem ipsum",
-      "image_url": "lorem ipsum",
-      "comment_count": 12,
-      "like_count": 12
-    }
-  ]
+  "data": {
+    "list": [
+      {
+        "id": 1,
+        "username": "username",
+        "avatar_url": "lorem ipsum",
+        "body": "lorem ipsum",
+        "image_url": "lorem ipsum",
+        "comment_count": 12,
+        "like_count": 12
+      }
+    ]
+  }
 }
 ```
 
-### Timeline Detail
+### Post Detail
 
-GET `/v1/posts/:id`
+GET `api/v1/posts/:id`
 
 Header
 
@@ -102,25 +106,53 @@ Status OK 200
 ```json
 {
   "message": "timeline get success",
-  "detail": {
-    "id": 1,
-    "username": "username",
-    "avatar_url": "lorem ipsum",
-    "body": "lorem ipsum",
-    "image_url": "lorem ipsum",
-    "comment_count": 12,
-    "like_count": 12
-  },
-  "comment": [
-    {
-      "id": 2,
+  "data": {
+    "detail": {
+      "id": 1,
       "username": "username",
       "avatar_url": "lorem ipsum",
       "body": "lorem ipsum",
       "image_url": "lorem ipsum",
       "comment_count": 12,
-      "like_count": 12
+      "like_count": 12,
+      "comment": [
+        {
+          "id": 2,
+          "username": "username",
+          "avatar_url": "lorem ipsum",
+          "body": "lorem ipsum",
+          "image_url": "lorem ipsum",
+          "comment_count": 12,
+          "like_count": 12
+        }
+      ]
     }
-  ]
+  }
+}
+```
+
+### Create Post
+
+POST `api/v1/posts`
+
+Header
+
+- `Authorization: Bearer <token>`
+
+Content-Type: `multipart/form-data`
+
+Request Body:
+
+- `anonymous` as `boolean`
+- `body` as `string`
+- `image` as `file`
+
+Response Body:
+
+Status OK 201
+
+```json
+{
+  "message": "post created successfully"
 }
 ```
