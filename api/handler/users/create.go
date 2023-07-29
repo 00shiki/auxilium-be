@@ -53,9 +53,8 @@ func (handler *Controller) CreateUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	render.Status(r, http.StatusCreated)
 	render.Render(w, r, &responses.Response{
-		Code:    http.StatusOK,
+		Code:    http.StatusCreated,
 		Message: "register success",
 	})
 }

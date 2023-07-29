@@ -24,6 +24,10 @@ func (handler *Controller) Login(w http.ResponseWriter, r *http.Request) {
 
 	user, err := handler.repo.DetailByEmail(input.Email)
 	if err != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusNotFound,
+			Message: err.Error(),
+		})
 		return
 	}
 
