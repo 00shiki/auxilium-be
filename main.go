@@ -36,6 +36,7 @@ func main() {
 	utils.InitJWT()
 
 	// Router
+	port := os.Getenv("PORT")
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Route("/api", func(r chi.Router) {
@@ -54,5 +55,5 @@ func main() {
 			})
 		})
 	})
-	http.ListenAndServe(":3000", r)
+	http.ListenAndServe(":"+port, r)
 }
