@@ -12,14 +12,15 @@ type Post struct {
 	Body          string
 	ImageURL      string
 	Comments      []Comment
-	CommentsCount int64
-	LikesCount    int64
+	CommentsCount int
+	LikesCount    int
 }
 
 type Comment struct {
 	gorm.Model
 	UserID     uint
 	User       users.User
+	PostID     uint
 	Body       string
-	LikesCount int64
+	LikesCount int
 }

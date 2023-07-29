@@ -22,7 +22,15 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, claims, err := jwtauth.FromContext(r.Context())
+	_, claims, errClaims := jwtauth.FromContext(r.Context())
+	if errClaims != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusUnauthorized,
+			Message: errClaims.Error(),
+		})
+		return
+	}
+
 	payload := claims["sub"].(jwt.Payload)
 	user, errDetail := handler.ur.DetailById(payload.UserID)
 	if errDetail != nil {

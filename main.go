@@ -66,6 +66,7 @@ func main() {
 				r.Use(jwtauth.Verifier(utils.TokenAuth))
 				r.Use(jwtauth.Authenticator)
 				r.Post("/", postsHandler.CreatePost)
+				r.Get("/", postsHandler.ListPosts)
 			})
 		})
 	})

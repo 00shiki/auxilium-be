@@ -62,7 +62,7 @@ GET `api/v1/posts`
 Params
 
 - `page` (default = 1)
-- `size` (default = 5)
+- `size` (default = 10)
 
 Header
 
@@ -75,19 +75,17 @@ Status OK 200
 ```json
 {
   "message": "timeline get success",
-  "data": {
-    "list": [
-      {
-        "id": 1,
-        "username": "username",
-        "avatar_url": "lorem ipsum",
-        "body": "lorem ipsum",
-        "image_url": "lorem ipsum",
-        "comment_count": 12,
-        "like_count": 12
-      }
-    ]
-  }
+  "data": [
+    {
+      "id": 1,
+      "username": "username",
+      "avatar_url": "lorem ipsum",
+      "body": "lorem ipsum",
+      "image_url": "lorem ipsum",
+      "comments_count": 12, 
+      "likes_count": 12
+    }
+  ]
 }
 ```
 
@@ -107,26 +105,24 @@ Status OK 200
 {
   "message": "timeline get success",
   "data": {
-    "detail": {
-      "id": 1,
-      "username": "username",
-      "avatar_url": "lorem ipsum",
-      "body": "lorem ipsum",
-      "image_url": "lorem ipsum",
-      "comment_count": 12,
-      "like_count": 12,
-      "comment": [
-        {
-          "id": 2,
-          "username": "username",
-          "avatar_url": "lorem ipsum",
-          "body": "lorem ipsum",
-          "image_url": "lorem ipsum",
-          "comment_count": 12,
-          "like_count": 12
-        }
-      ]
-    }
+    "id": 1,
+    "username": "username",
+    "avatar_url": "lorem ipsum",
+    "body": "lorem ipsum",
+    "image_url": "lorem ipsum",
+    "comments_count": 12,
+    "likes_count": 12,
+    "comments": [
+      {
+        "id": 2,
+        "username": "username",
+        "avatar_url": "lorem ipsum",
+        "body": "lorem ipsum",
+        "image_url": "lorem ipsum",
+        "comments_count": 12,
+        "likes_count": 12
+      }
+    ]
   }
 }
 ```

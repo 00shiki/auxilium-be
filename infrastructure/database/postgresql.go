@@ -1,6 +1,7 @@
 package database
 
 import (
+	"auxilium-be/entity/posts"
 	"auxilium-be/entity/users"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -12,6 +13,6 @@ func NewDatabase() (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-	db.AutoMigrate(&users.User{})
+	db.AutoMigrate(&users.User{}, &posts.Post{}, &posts.Comment{})
 	return db, nil
 }
