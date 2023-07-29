@@ -10,16 +10,12 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/jwtauth"
 	"github.com/joho/godotenv"
-	"log"
 	"net/http"
 	"os"
 )
 
 func main() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	godotenv.Load(".env")
 
 	// Database
 	postgres, err := database.NewDatabase()
