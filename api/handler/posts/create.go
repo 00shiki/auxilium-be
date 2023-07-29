@@ -34,7 +34,7 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	now := time.Now()
-	exp := claims["iat"].(int64)
+	exp := claims["exp"].(int64)
 	if exp < now.Unix() {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusUnauthorized,
