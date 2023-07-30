@@ -67,6 +67,7 @@ func main() {
 				r.Use(jwtauth.Authenticator)
 				r.Post("/", postsHandler.CreatePost)
 				r.Get("/", postsHandler.ListPosts)
+				r.Post("/{postID}/comment", postsHandler.CreateComment)
 			})
 		})
 	})

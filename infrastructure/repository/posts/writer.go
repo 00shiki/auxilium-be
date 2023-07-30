@@ -9,3 +9,11 @@ func (r *Repository) Create(post *posts.Post) error {
 	}
 	return nil
 }
+
+func (r *Repository) Comment(comment *posts.Comment) error {
+	result := r.db.Create(&comment)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}

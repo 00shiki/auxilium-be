@@ -17,3 +17,8 @@ func (c Create) Bind(r *http.Request) error {
 	}
 	return nil
 }
+
+type CreateComment struct {
+	Anonymous bool   `json:"anonymous"`
+	Body      string `form:"body"`
+}

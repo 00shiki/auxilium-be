@@ -22,7 +22,7 @@ func (handler *Controller) ListPosts(w http.ResponseWriter, r *http.Request) {
 	page, errPage := strconv.Atoi(pageQuery)
 	if errPage != nil {
 		render.Render(w, r, &responses.Response{
-			Code:    http.StatusInternalServerError,
+			Code:    http.StatusBadRequest,
 			Message: errPage.Error(),
 		})
 		return
@@ -30,7 +30,7 @@ func (handler *Controller) ListPosts(w http.ResponseWriter, r *http.Request) {
 	size, errSize := strconv.Atoi(sizeQuery)
 	if errSize != nil {
 		render.Render(w, r, &responses.Response{
-			Code:    http.StatusInternalServerError,
+			Code:    http.StatusBadRequest,
 			Message: errSize.Error(),
 		})
 		return
