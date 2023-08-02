@@ -45,8 +45,8 @@ func (handler *Controller) ListPosts(w http.ResponseWriter, r *http.Request) {
 	}
 
 	now := time.Now()
-	exp := claims["exp"].(int64)
-	if exp < now.Unix() {
+	exp := claims["exp"].(time.Time)
+	if exp.Unix() < now.Unix() {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusUnauthorized,
 			Message: "token expired",
@@ -67,7 +67,7 @@ func (handler *Controller) ListPosts(w http.ResponseWriter, r *http.Request) {
 		list = append(list, POSTS_PRESENTATION.ResponseListPosts{
 			ID:            post.ID,
 			Username:      post.User.Username,
-			AvatarURL:     post.User.AvatarUrl,
+			AvatarURL:     post.User.AvatarURL,
 			Body:          post.Body,
 			ImageURL:      post.ImageURL,
 			CommentsCount: post.CommentsCount,

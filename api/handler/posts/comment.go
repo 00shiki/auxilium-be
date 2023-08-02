@@ -34,8 +34,8 @@ func (handler *Controller) CreateComment(w http.ResponseWriter, r *http.Request)
 	}
 
 	now := time.Now()
-	exp := claims["exp"].(int64)
-	if exp < now.Unix() {
+	exp := claims["exp"].(time.Time)
+	if exp.Unix() < now.Unix() {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusUnauthorized,
 			Message: "token expired",

@@ -103,7 +103,7 @@ Status OK 200
 
 ```json
 {
-  "message": "timeline get success",
+  "message": "detail get success",
   "data": {
     "id": 1,
     "username": "username",
@@ -119,7 +119,6 @@ Status OK 200
         "avatar_url": "lorem ipsum",
         "body": "lorem ipsum",
         "image_url": "lorem ipsum",
-        "comments_count": 12,
         "likes_count": 12
       }
     ]

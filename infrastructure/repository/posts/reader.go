@@ -21,6 +21,15 @@ func (r *Repository) ListPosts(page int, size int) ([]POSTS_ENTITY.Post, error) 
 	return posts, nil
 }
 
+func (r *Repository) ListComments(postID uint) ([]POSTS_ENTITY.Comment, error) {
+	var comments []POSTS_ENTITY.Comment
+	result := r.db.Find(&comments, "PostID = ?", postID)
+	if result.Error != nil {
+		return []POSTS_ENTITY.Comment{}, result.Error
+	}
+	return comments, nil
+}
+
 func (r *Repository) DetailByID(postID uint) (POSTS_ENTITY.Post, error) {
 	var post POSTS_ENTITY.Post
 	result := r.db.First(&post, postID)

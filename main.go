@@ -67,7 +67,10 @@ func main() {
 				r.Use(jwtauth.Authenticator)
 				r.Post("/", postsHandler.CreatePost)
 				r.Get("/", postsHandler.ListPosts)
-				r.Post("/{postID}/comment", postsHandler.CreateComment)
+				r.Route("/{postID}", func(r chi.Router) {
+					r.Get("/", postsHandler.DetailPost)
+					r.Post("/comment", postsHandler.CreateComment)
+				})
 			})
 		})
 	})
