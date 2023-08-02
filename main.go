@@ -61,6 +61,7 @@ func main() {
 			r.Route("/users", func(r chi.Router) {
 				r.Post("/register", usersHandler.CreateUsers)
 				r.Post("/", usersHandler.Login)
+				r.With(jwtauth.Verifier(utils.TokenAuth)).With(jwtauth.Authenticator).Get("/detail", usersHandler.DetailUser)
 			})
 			r.Route("/posts", func(r chi.Router) {
 				r.Use(jwtauth.Verifier(utils.TokenAuth))

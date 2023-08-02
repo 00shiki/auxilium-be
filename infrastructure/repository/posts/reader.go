@@ -23,7 +23,7 @@ func (r *Repository) ListPosts(page int, size int) ([]POSTS_ENTITY.Post, error) 
 
 func (r *Repository) ListComments(postID uint) ([]POSTS_ENTITY.Comment, error) {
 	var comments []POSTS_ENTITY.Comment
-	result := r.db.Find(&comments, "PostID = ?", postID)
+	result := r.db.Find(&comments, "post_id = ?", postID)
 	if result.Error != nil {
 		return []POSTS_ENTITY.Comment{}, result.Error
 	}

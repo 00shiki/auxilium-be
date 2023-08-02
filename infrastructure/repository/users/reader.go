@@ -2,9 +2,9 @@ package users
 
 import "auxilium-be/entity/users"
 
-func (r *Repository) DetailById(userId uint) (users.User, error) {
+func (r *Repository) DetailByID(userID uint) (users.User, error) {
 	var user users.User
-	result := r.db.First(&user, userId)
+	result := r.db.First(&user, userID)
 	if result.Error != nil {
 		return users.User{}, result.Error
 	}

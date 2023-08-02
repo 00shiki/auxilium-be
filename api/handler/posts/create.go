@@ -1,10 +1,10 @@
 package posts
 
 import (
-	"auxilium-be/entity/jwt"
 	POSTS_ENTITY "auxilium-be/entity/posts"
 	"auxilium-be/entity/responses"
 	"auxilium-be/entity/users"
+	"fmt"
 	"github.com/go-chi/jwtauth"
 	"github.com/go-chi/render"
 	"net/http"
@@ -12,12 +12,11 @@ import (
 )
 
 func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
-	input := &POSTS_ENTITY.Create{}
-	err := render.Bind(r, input)
+	err := r.ParseMultipartForm(10 << 20)
 	if err != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusBadRequest,
-			Message: err.Error(),
+			Message: fmt.Sprintf("parse: %v", err.Error()),
 		})
 		return
 	}
@@ -26,7 +25,7 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	if errClaims != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusUnauthorized,
-			Message: errClaims.Error(),
+			Message: fmt.Sprintf("claims: %v", errClaims.Error()),
 		})
 		return
 	}
@@ -41,8 +40,8 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	payload := claims["sub"].(jwt.Payload)
-	user, errDetail := handler.ur.DetailById(payload.UserID)
+	userID := claims["id"].(float64)
+	user, errDetail := handler.ur.DetailByID(uint(userID))
 	if errDetail != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusNotFound,
@@ -56,13 +55,17 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	//if input.Image != nil {
 	//
 	//}
-	if input.Anonymous {
+	//image, header, errImage := r.FormFile("image")
+
+	anonymous := r.FormValue("anonymous")
+	if anonymous == "1" {
 		user = users.User{}
 	}
+	body := r.FormValue("body")
 	post := &POSTS_ENTITY.Post{
-		UserID:   0,
+		UserID:   user.ID,
 		User:     user,
-		Body:     input.Body,
+		Body:     body,
 		ImageURL: imageURL,
 	}
 	errCreate := handler.pr.Create(post)
