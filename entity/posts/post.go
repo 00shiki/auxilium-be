@@ -1,14 +1,14 @@
 package posts
 
 import (
-	"auxilium-be/entity/users"
 	"gorm.io/gorm"
 )
 
 type Post struct {
 	gorm.Model
 	UserID        uint
-	User          users.User
+	Username      string
+	AvatarURL     string
 	Body          string
 	ImageURL      string
 	Comments      []Comment
@@ -19,7 +19,8 @@ type Post struct {
 type Comment struct {
 	gorm.Model
 	UserID     uint
-	User       users.User
+	Username   string
+	AvatarURL  string
 	PostID     uint
 	Body       string
 	LikesCount int

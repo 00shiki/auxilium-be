@@ -62,10 +62,11 @@ func (handler *Controller) CreateComment(w http.ResponseWriter, r *http.Request)
 	}
 
 	comment := POSTS_ENTITY.Comment{
-		UserID: user.ID,
-		User:   user,
-		PostID: uint(postID),
-		Body:   input.Body,
+		UserID:    user.ID,
+		Username:  user.Username,
+		AvatarURL: user.AvatarURL,
+		PostID:    uint(postID),
+		Body:      input.Body,
 	}
 
 	errComment := handler.pr.Comment(&comment)

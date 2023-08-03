@@ -62,8 +62,8 @@ func (handler *Controller) DetailPost(w http.ResponseWriter, r *http.Request) {
 	for _, comment := range comments {
 		detailComments = append(detailComments, posts.ResponseListComments{
 			ID:         comment.ID,
-			Username:   comment.User.Username,
-			AvatarURL:  comment.User.AvatarURL,
+			Username:   comment.Username,
+			AvatarURL:  comment.AvatarURL,
 			Body:       comment.Body,
 			LikesCount: comment.LikesCount,
 		})
@@ -71,8 +71,8 @@ func (handler *Controller) DetailPost(w http.ResponseWriter, r *http.Request) {
 
 	detail := posts.ResponseDetailPost{
 		ID:            uint(postID),
-		Username:      post.User.Username,
-		AvatarURL:     post.User.AvatarURL,
+		Username:      post.Username,
+		AvatarURL:     post.AvatarURL,
 		Body:          post.Body,
 		ImageURL:      post.ImageURL,
 		CommentsCount: post.CommentsCount,

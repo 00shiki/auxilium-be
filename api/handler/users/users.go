@@ -1,15 +1,18 @@
 package users
 
 import (
+	"auxilium-be/infrastructure/repository/posts"
 	"auxilium-be/infrastructure/repository/users"
 )
 
 type Controller struct {
-	repo *users.Repository
+	ur *users.Repository
+	pr *posts.Repository
 }
 
-func ControllerHandler(repo *users.Repository) *Controller {
+func ControllerHandler(ur *users.Repository, pr *posts.Repository) *Controller {
 	return &Controller{
-		repo: repo,
+		ur: ur,
+		pr: pr,
 	}
 }

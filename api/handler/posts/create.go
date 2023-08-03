@@ -63,10 +63,11 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 	body := r.FormValue("body")
 	post := &POSTS_ENTITY.Post{
-		UserID:   user.ID,
-		User:     user,
-		Body:     body,
-		ImageURL: imageURL,
+		UserID:    user.ID,
+		Username:  user.Username,
+		AvatarURL: user.AvatarURL,
+		Body:      body,
+		ImageURL:  imageURL,
 	}
 	errCreate := handler.pr.Create(post)
 	if errCreate != nil {

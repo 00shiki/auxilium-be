@@ -44,7 +44,7 @@ func (handler *Controller) CreateUsers(w http.ResponseWriter, r *http.Request) {
 		PhoneNumber: input.PhoneNumber,
 	}
 
-	errCreate := handler.repo.Create(data)
+	errCreate := handler.ur.Create(data)
 	if errCreate != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusInternalServerError,

@@ -22,7 +22,7 @@ func (handler *Controller) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := handler.repo.DetailByEmail(input.Email)
+	user, err := handler.ur.DetailByEmail(input.Email)
 	if err != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusNotFound,
@@ -58,7 +58,7 @@ func (handler *Controller) Login(w http.ResponseWriter, r *http.Request) {
 		})
 		return
 	}
-	errStore := handler.repo.StoreToken(user.ID, accessToken, refreshToken)
+	errStore := handler.ur.StoreToken(user.ID, accessToken, refreshToken)
 	if errStore != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusInternalServerError,

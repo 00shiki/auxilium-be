@@ -38,3 +38,12 @@ func (r *Repository) DetailByID(postID uint) (POSTS_ENTITY.Post, error) {
 	}
 	return post, nil
 }
+
+func (r *Repository) ListPostsByUserID(userID uint) ([]POSTS_ENTITY.Post, error) {
+	var posts []POSTS_ENTITY.Post
+	result := r.db.Find(&posts, "user_id = ?", userID)
+	if result.Error != nil {
+		return []POSTS_ENTITY.Post{}, result.Error
+	}
+	return posts, nil
+}

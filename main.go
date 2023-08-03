@@ -32,7 +32,7 @@ func main() {
 	pr := POSTS_REPO.NewPostsRepository(postgres)
 
 	// Controller
-	usersHandler := USERS_HANDLER.ControllerHandler(ur)
+	usersHandler := USERS_HANDLER.ControllerHandler(ur, pr)
 	postsHandler := POSTS_HANDLER.ControllerHandler(pr, ur)
 
 	// JWT

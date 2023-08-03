@@ -66,8 +66,8 @@ func (handler *Controller) ListPosts(w http.ResponseWriter, r *http.Request) {
 	for _, post := range posts {
 		list = append(list, POSTS_PRESENTATION.ResponseListPosts{
 			ID:            post.ID,
-			Username:      post.User.Username,
-			AvatarURL:     post.User.AvatarURL,
+			Username:      post.Username,
+			AvatarURL:     post.AvatarURL,
 			Body:          post.Body,
 			ImageURL:      post.ImageURL,
 			CommentsCount: post.CommentsCount,
