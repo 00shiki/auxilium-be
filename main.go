@@ -1,10 +1,12 @@
 package main
 
 import (
+	HELPER_HANDLER "auxilium-be/api/handler/helper"
 	POSTS_HANDLER "auxilium-be/api/handler/posts"
 	USERS_HANDLER "auxilium-be/api/handler/users"
 	"auxilium-be/entity/responses"
 	"auxilium-be/infrastructure/database"
+	HELPER_REPO "auxilium-be/infrastructure/repository/helper"
 	POSTS_REPO "auxilium-be/infrastructure/repository/posts"
 	USERS_REPO "auxilium-be/infrastructure/repository/users"
 	"auxilium-be/pkg/storage"
@@ -34,10 +36,12 @@ func main() {
 	// Repository
 	ur := USERS_REPO.NewUsersRepository(postgres)
 	pr := POSTS_REPO.NewPostsRepository(postgres)
+	hr := HELPER_REPO.NewHelperRepository(postgres)
 
 	// Controller
 	usersHandler := USERS_HANDLER.ControllerHandler(ur, pr)
 	postsHandler := POSTS_HANDLER.ControllerHandler(pr, ur)
+	helperHandler := HELPER_HANDLER.ControllerHandler(hr, ur)
 
 	// JWT
 	utils.InitJWT()
@@ -129,6 +133,13 @@ func main() {
 					r.Get("/", postsHandler.DetailPost)
 					r.Post("/comment", postsHandler.CreateComment)
 				})
+			})
+			r.Route("/helper", func(r chi.Router) {
+				r.Use(jwtauth.Verifier(utils.TokenAuth))
+				r.Use(jwtauth.Authenticator)
+				r.Post("/", helperHandler.CreateHelper)
+				r.Post("/remove", helperHandler.RemoveHelper)
+				r.Get("/", helperHandler.List)
 			})
 		})
 	})
