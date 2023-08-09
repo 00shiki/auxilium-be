@@ -1,19 +1,17 @@
-package posts
+package users
 
 import (
-	POSTS_ENTITY "auxilium-be/entity/posts"
 	"auxilium-be/entity/responses"
-	"auxilium-be/entity/users"
-	"fmt"
+	USERS_ENTITY "auxilium-be/entity/users"
 	"github.com/go-chi/jwtauth"
 	"github.com/go-chi/render"
 	"net/http"
 	"time"
 )
 
-func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
-	input := POSTS_ENTITY.Create{}
-	err := render.Bind(r, &input)
+func (handler *Controller) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	input := &USERS_ENTITY.Update{}
+	err := render.Bind(r, input)
 	if err != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusBadRequest,
@@ -26,9 +24,8 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	if errClaims != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusUnauthorized,
-			Message: fmt.Sprintf("claims: %v", errClaims.Error()),
+			Message: errClaims.Error(),
 		})
-		return
 	}
 
 	now := time.Now()
@@ -45,33 +42,38 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	user, errDetail := handler.ur.DetailByID(uint(userID))
 	if errDetail != nil {
 		render.Render(w, r, &responses.Response{
-			Code:    http.StatusNotFound,
+			Code:    http.StatusInternalServerError,
 			Message: errDetail.Error(),
 		})
 		return
 	}
 
-	if input.Anonymous {
-		user = users.User{}
+	if input.FirstName != "" {
+		user.FirstName = input.FirstName
 	}
-	post := &POSTS_ENTITY.Post{
-		UserID:    user.ID,
-		Username:  user.Username,
-		AvatarURL: user.AvatarURL,
-		Body:      input.Body,
-		ImageURL:  input.ImageURL,
+	if input.LastName != "" {
+		user.LastName = input.LastName
 	}
-	errCreate := handler.pr.Create(post)
-	if errCreate != nil {
+	if input.Email != "" {
+		user.Email = input.Email
+	}
+	if input.PhoneNumber != "" {
+		user.PhoneNumber = input.PhoneNumber
+	}
+	if input.AvatarURL != "" {
+		user.AvatarURL = input.AvatarURL
+	}
+	errUpdate := handler.ur.Update(&user)
+	if errUpdate != nil {
 		render.Render(w, r, &responses.Response{
 			Code:    http.StatusInternalServerError,
-			Message: errCreate.Error(),
+			Message: errUpdate.Error(),
 		})
 		return
 	}
 
 	render.Render(w, r, &responses.Response{
-		Code:    http.StatusCreated,
-		Message: "post created successfully",
+		Code:    http.StatusOK,
+		Message: "update success",
 	})
 }

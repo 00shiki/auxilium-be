@@ -21,3 +21,11 @@ func (r *Repository) StoreToken(userId uint, accessToken string, refreshToken st
 	result = r.db.Save(user)
 	return nil
 }
+
+func (r *Repository) Update(user *users.User) error {
+	result := r.db.Save(&user)
+	if result.Error != nil {
+		return result.Error
+	}
+	return nil
+}

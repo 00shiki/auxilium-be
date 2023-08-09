@@ -6,9 +6,9 @@ import (
 )
 
 type Create struct {
-	Anonymous bool   `form:"anonymous"`
-	Body      string `form:"body"`
-	Image     []byte `form:"image,omitempty"`
+	Anonymous bool   `json:"anonymous"`
+	Body      string `json:"body"`
+	ImageURL  string `json:"image_url"`
 }
 
 func (c Create) Bind(r *http.Request) error {
