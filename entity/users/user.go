@@ -13,6 +13,7 @@ type User struct {
 	Password     string   `gorm:"size:255;not null"`
 	PhoneNumber  string   `gorm:"size:255;not null"`
 	AvatarURL    string   `gorm:"size:255"`
+	Bio          string   `gorm:"size:255"`
 	Location     Location `gorm:"embedded"`
 	AccessToken  string   `gorm:"size:255"`
 	RefreshToken string   `gorm:"size:255"`

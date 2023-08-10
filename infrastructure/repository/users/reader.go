@@ -19,3 +19,12 @@ func (r *Repository) DetailByEmail(email string) (users.User, error) {
 	}
 	return user, nil
 }
+
+func (r *Repository) DetailByUsername(username string) (users.User, error) {
+	var user users.User
+	result := r.db.First(&user, "username = ?", username)
+	if result.Error != nil {
+		return users.User{}, result.Error
+	}
+	return user, nil
+}

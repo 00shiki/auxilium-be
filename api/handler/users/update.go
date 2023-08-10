@@ -63,6 +63,9 @@ func (handler *Controller) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	if input.AvatarURL != "" {
 		user.AvatarURL = input.AvatarURL
 	}
+	if input.Bio != "" {
+		user.Bio = input.Bio
+	}
 	errUpdate := handler.ur.Update(&user)
 	if errUpdate != nil {
 		render.Render(w, r, &responses.Response{

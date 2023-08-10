@@ -121,7 +121,7 @@ func main() {
 			r.Route("/users", func(r chi.Router) {
 				r.Post("/register", usersHandler.CreateUsers)
 				r.Post("/", usersHandler.Login)
-				r.With(jwtauth.Verifier(utils.TokenAuth)).With(jwtauth.Authenticator).Get("/detail", usersHandler.DetailUser)
+				r.Get("/{username}", usersHandler.DetailUser)
 				r.With(jwtauth.Verifier(utils.TokenAuth)).With(jwtauth.Authenticator).Post("/update", usersHandler.UpdateUser)
 			})
 			r.Route("/posts", func(r chi.Router) {
@@ -142,6 +142,9 @@ func main() {
 				r.Get("/", helperHandler.List)
 			})
 		})
+	})
+	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+
 	})
 	http.ListenAndServe(":"+port, r)
 }
