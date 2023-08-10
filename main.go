@@ -66,7 +66,8 @@ func main() {
 			r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 				w.Write([]byte("welcome"))
 			})
-			r.With(jwtauth.Verifier(utils.TokenAuth)).With(jwtauth.Authenticator).Post("/upload", func(w http.ResponseWriter, r *http.Request) {
+			r.With(jwtauth.Verifier(utils.TokenAuth)).With(jwtauth.Authenticator).With(render.SetContentType(render.ContentTypeForm)).Post("/upload", func(w http.ResponseWriter, r *http.Request) {
+				// size max 10mb
 				err := r.ParseMultipartForm(10 << 20)
 				if err != nil {
 					render.Render(w, r, &responses.Response{
@@ -114,8 +115,9 @@ func main() {
 				}
 
 				render.Render(w, r, &responses.Response{
-					Code: http.StatusOK,
-					Data: imageURL,
+					Code:    http.StatusOK,
+					Message: "upload image success",
+					Data:    imageURL,
 				})
 			})
 			r.Route("/users", func(r chi.Router) {
@@ -147,8 +149,8 @@ func main() {
 			})
 		})
 	})
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-
-	})
+	//http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+	//
+	//})
 	http.ListenAndServe(":"+port, r)
 }

@@ -108,6 +108,6 @@ func (handler *Controller) LikeComment(w http.ResponseWriter, r *http.Request) {
 
 	render.Render(w, r, &responses.Response{
 		Code:    http.StatusOK,
-		Message: "like post success",
+		Message: "like comment success",
 	})
 }
