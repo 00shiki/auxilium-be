@@ -61,6 +61,25 @@ func (handler *Controller) CreateComment(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	post, errPost := handler.pr.DetailByID(uint(postID))
+	if errPost != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusNotFound,
+			Message: errPost.Error(),
+		})
+		return
+	}
+
+	post.CommentsCount = post.CommentsCount + 1
+	errUpdate := handler.pr.Update(&post)
+	if errUpdate != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusInternalServerError,
+			Message: errUpdate.Error(),
+		})
+		return
+	}
+
 	comment := POSTS_ENTITY.Comment{
 		UserID:    user.ID,
 		Username:  user.Username,

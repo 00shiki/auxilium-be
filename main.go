@@ -131,7 +131,11 @@ func main() {
 				r.Get("/", postsHandler.ListPosts)
 				r.Route("/{postID}", func(r chi.Router) {
 					r.Get("/", postsHandler.DetailPost)
-					r.Post("/comment", postsHandler.CreateComment)
+					r.Post("/like", postsHandler.LikePost)
+					r.Route("/comment", func(r chi.Router) {
+						r.Post("/", postsHandler.CreateComment)
+						r.Post("/{commentID}/like", postsHandler.LikeComment)
+					})
 				})
 			})
 			r.Route("/helper", func(r chi.Router) {
