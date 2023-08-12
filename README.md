@@ -242,6 +242,23 @@ Status OK 200
 }
 ```
 
+### Dislike Post
+
+POST `api/v1/posts/:postID/dislike`
+
+Header
+
+- `Authorization: Bearer <token>`
+  Response Body:
+
+Status OK 200
+
+```json
+{
+  "message": "dislike post success"
+}
+```
+
 ### Create Comment
 
 POST `api/v1/posts/:postID/comment`
@@ -271,7 +288,7 @@ Status Created 201
 
 ### Like Comment
 
-POST `api/v1/posts/:postID/comment/:commentID`
+POST `api/v1/posts/:postID/comment/:commentID/like`
 
 Header
 
@@ -284,6 +301,24 @@ Status OK 200
 ```json
 {
   "message": "like comment success"
+}
+```
+
+### Dislike Comment
+
+POST `api/v1/posts/:postID/comment/:commentID/dislike`
+
+Header
+
+- `Authorization: Bearer <token>`
+
+Response Body:
+
+Status OK 200
+
+```json
+{
+  "message": "dislike comment success"
 }
 ```
 

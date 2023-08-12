@@ -139,9 +139,11 @@ func main() {
 				r.Route("/{postID}", func(r chi.Router) {
 					r.Get("/", postsHandler.DetailPost)
 					r.Post("/like", postsHandler.LikePost)
+					r.Post("/dislike", postsHandler.DislikePost)
 					r.Route("/comment", func(r chi.Router) {
 						r.Post("/", postsHandler.CreateComment)
 						r.Post("/{commentID}/like", postsHandler.LikeComment)
+						r.Post("/{commentID}/dislike", postsHandler.DislikeComment)
 					})
 				})
 			})
