@@ -71,6 +71,8 @@ func (handler *Controller) Login(w http.ResponseWriter, r *http.Request) {
 		Message: "login success",
 		Code:    http.StatusOK,
 		Data: users.ResponseLogin{
+			Username:     user.Username,
+			AvatarURL:    user.AvatarURL,
 			AccessToken:  accessToken,
 			RefreshToken: refreshToken,
 		},
