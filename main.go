@@ -18,8 +18,10 @@ import (
 	"github.com/go-chi/jwtauth"
 	"github.com/go-chi/render"
 	"github.com/joho/godotenv"
+	"github.com/thanhpk/randstr"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -105,7 +107,10 @@ func main() {
 					return
 				}
 
-				imageURL, errUpload := storage.ClientInit().UploadToBucket(file, header.Filename)
+				fileFormat := strings.Split(header.Filename, ".")
+				fileName := fmt.Sprintf("%s.%s", randstr.Hex(16), fileFormat[1])
+
+				imageURL, errUpload := storage.ClientInit().UploadToBucket(file, fileName)
 				if errUpload != nil {
 					render.Render(w, r, &responses.Response{
 						Code:    http.StatusInternalServerError,
