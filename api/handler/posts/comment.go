@@ -80,6 +80,10 @@ func (handler *Controller) CreateComment(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	if input.Anonymous {
+		user.ID = 0
+		user.Username = ""
+	}
 	comment := POSTS_ENTITY.Comment{
 		UserID:    user.ID,
 		Username:  user.Username,
