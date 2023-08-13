@@ -3,7 +3,6 @@ package posts
 import (
 	POSTS_ENTITY "auxilium-be/entity/posts"
 	"auxilium-be/entity/responses"
-	"auxilium-be/entity/users"
 	"fmt"
 	"github.com/go-chi/jwtauth"
 	"github.com/go-chi/render"
@@ -52,7 +51,8 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if input.Anonymous {
-		user = users.User{}
+		user.ID = 0
+		user.Username = ""
 	}
 	post := &POSTS_ENTITY.Post{
 		UserID:    user.ID,
