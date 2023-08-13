@@ -51,8 +51,9 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if input.Anonymous {
-		user.ID = 0
+		user.ID = 1
 		user.Username = ""
+		user.AvatarURL = ""
 	}
 	post := &POSTS_ENTITY.Post{
 		UserID:    user.ID,
