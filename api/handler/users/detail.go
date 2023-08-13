@@ -38,6 +38,9 @@ func (handler *Controller) DetailUser(w http.ResponseWriter, r *http.Request) {
 
 	userPosts := []POSTS_PRESENTATION.ResponseListPosts{}
 	for _, post := range posts {
+		if post.Username == "" {
+			continue
+		}
 		userPosts = append(userPosts, POSTS_PRESENTATION.ResponseListPosts{
 			ID:            post.ID,
 			Username:      user.Username,

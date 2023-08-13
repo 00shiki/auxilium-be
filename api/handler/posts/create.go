@@ -51,7 +51,6 @@ func (handler *Controller) CreatePost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if input.Anonymous {
-		user.ID = 1
 		user.Username = ""
 		user.AvatarURL = ""
 	}
