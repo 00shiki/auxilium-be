@@ -9,5 +9,6 @@ type ResponseDetailUser struct {
 	Email       string                    `json:"email"`
 	PhoneNumber string                    `json:"phone_number"`
 	AvatarURL   string                    `json:"avatar_url"`
+	Bio         string                    `json:"bio"`
 	Posts       []posts.ResponseListPosts `json:"posts"`
 }

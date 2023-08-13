@@ -59,6 +59,7 @@ func (handler *Controller) DetailUser(w http.ResponseWriter, r *http.Request) {
 		Email:       user.Email,
 		PhoneNumber: user.PhoneNumber,
 		AvatarURL:   user.AvatarURL,
+		Bio:         user.Bio,
 		Posts:       userPosts,
 	}
 
