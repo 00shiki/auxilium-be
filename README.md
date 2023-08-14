@@ -1,3 +1,25 @@
+# Auxilium Backend Service
+
+`go 1.20`
+
+## Get Dependencies
+
+```shell
+go mod vendor
+```
+
+## Running
+
+```shell
+go run main.go
+```
+
+## Build
+
+```shell
+go build
+```
+
 # API Spec
 
 ---
