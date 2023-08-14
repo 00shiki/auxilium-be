@@ -61,7 +61,7 @@ Status Created 201
 
 ### Detail User
 
-GET `api/v1/users/:userID`
+GET `api/v1/users/:username`
 
 Response Body:
 

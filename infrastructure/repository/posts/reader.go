@@ -1,6 +1,9 @@
 package posts
 
-import POSTS_ENTITY "auxilium-be/entity/posts"
+import (
+	POSTS_ENTITY "auxilium-be/entity/posts"
+	"gorm.io/gorm/clause"
+)
 
 func (r *Repository) ListPosts(page int, size int) ([]POSTS_ENTITY.Post, error) {
 	var posts []POSTS_ENTITY.Post
@@ -14,7 +17,7 @@ func (r *Repository) ListPosts(page int, size int) ([]POSTS_ENTITY.Post, error) 
 		size = 10
 	}
 	offset := (page - 1) * size
-	pagination := r.db.Offset(offset).Limit(size).Find(&posts)
+	pagination := r.db.Offset(offset).Limit(size).Order(clause.OrderByColumn{Column: clause.Column{Name: "created_at"}, Desc: true}).Find(&posts)
 	if pagination.Error != nil {
 		return []POSTS_ENTITY.Post{}, pagination.Error
 	}
@@ -41,7 +44,7 @@ func (r *Repository) DetailByID(postID uint) (POSTS_ENTITY.Post, error) {
 
 func (r *Repository) ListPostsByUserID(userID uint) ([]POSTS_ENTITY.Post, error) {
 	var posts []POSTS_ENTITY.Post
-	result := r.db.Find(&posts, "user_id = ?", userID)
+	result := r.db.Order(clause.OrderByColumn{Column: clause.Column{Name: "created_at"}, Desc: true}).Where("user_id = ?", userID).Find(&posts)
 	if result.Error != nil {
 		return []POSTS_ENTITY.Post{}, result.Error
 	}
