@@ -1,6 +1,9 @@
 package users
 
-import "net/http"
+import (
+	"errors"
+	"net/http"
+)
 
 type Update struct {
 	FirstName   string `json:"first_name"`
@@ -12,5 +15,24 @@ type Update struct {
 }
 
 func (u Update) Bind(r *http.Request) error {
+	return nil
+}
+
+type ChangePassword struct {
+	Email           string `json:"email"`
+	Password        string `json:"password"`
+	ConfirmPassword string `json:"confirm_password"`
+}
+
+func (c ChangePassword) Bind(r *http.Request) error {
+	if c.Email == "" {
+		return errors.New("email must not empty")
+	}
+	if c.Password == "" {
+		return errors.New("password must not empty")
+	}
+	if c.ConfirmPassword == "" {
+		return errors.New("confirm_password must not empty")
+	}
 	return nil
 }

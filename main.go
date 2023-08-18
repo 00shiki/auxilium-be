@@ -19,8 +19,10 @@ import (
 	"github.com/go-chi/render"
 	"github.com/joho/godotenv"
 	"github.com/thanhpk/randstr"
+	"html/template"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 	"time"
 )
@@ -130,6 +132,22 @@ func main() {
 				r.Post("/", usersHandler.Login)
 				r.Get("/{username}", usersHandler.DetailUser)
 				r.With(jwtauth.Verifier(utils.TokenAuth)).With(jwtauth.Authenticator).Post("/update", usersHandler.UpdateUser)
+				r.Post("/change-password", usersHandler.ChangePassword)
+				r.Get("/forgot", func(w http.ResponseWriter, r *http.Request) {
+					var filePath = path.Join("pkg/templates", "forgot_password.html")
+					var tmpl, err = template.ParseFiles(filePath)
+					if err != nil {
+						w.Write([]byte("error parse template"))
+					}
+					var data = map[string]interface{}{
+						"title": "Lupa Password",
+						"nama":  "Auxilium",
+					}
+					err = tmpl.Execute(w, data)
+					if err != nil {
+						w.Write([]byte("error execute template"))
+					}
+				})
 			})
 			r.Route("/posts", func(r chi.Router) {
 				r.Use(jwtauth.Verifier(utils.TokenAuth))

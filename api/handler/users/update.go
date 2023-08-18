@@ -5,6 +5,7 @@ import (
 	USERS_ENTITY "auxilium-be/entity/users"
 	"github.com/go-chi/jwtauth"
 	"github.com/go-chi/render"
+	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"time"
 )
@@ -78,5 +79,57 @@ func (handler *Controller) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	render.Render(w, r, &responses.Response{
 		Code:    http.StatusOK,
 		Message: "update success",
+	})
+}
+
+func (handler *Controller) ChangePassword(w http.ResponseWriter, r *http.Request) {
+	input := &USERS_ENTITY.ChangePassword{}
+	err := render.Bind(r, input)
+	if err != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusBadRequest,
+			Message: err.Error(),
+		})
+		return
+	}
+
+	if input.Password != input.ConfirmPassword {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusBadRequest,
+			Message: "password doesn't match",
+		})
+		return
+	}
+
+	hashPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+	if err != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusBadRequest,
+			Message: err.Error(),
+		})
+	}
+
+	user, errDetail := handler.ur.DetailByEmail(input.Email)
+	if errDetail != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusBadRequest,
+			Message: errDetail.Error(),
+		})
+		return
+	}
+
+	user.Password = string(hashPassword)
+	errUpdate := handler.ur.Update(&user)
+	if errUpdate != nil {
+		render.Render(w, r, &responses.Response{
+			Code:    http.StatusBadRequest,
+			Message: errUpdate.Error(),
+		})
+		return
+	}
+
+	render.Render(w, r, &responses.Response{
+		Code:    http.StatusCreated,
+		Message: "change password success",
 	})
 }
